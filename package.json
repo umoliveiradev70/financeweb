@@ -1,0 +1,1 @@
+{"name":"financeweb","private":true,"type":"module","scripts":{"start":"node server.mjs","test":"node --test tests/finance.test.mjs","check":"node --check dist/app.js"}}

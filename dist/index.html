@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b1018"><meta name="description" content="O mercado em perspectiva. Acompanhe moedas, bolsas do Brasil, dos Estados Unidos e da Europa, notícias e calendário econômico no FinanceWEB.">
+  <title>FinanceWEB — O mercado em perspectiva</title>
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;450;500;550;600;650;700&family=Manrope:wght@400;500;600;650;700;750;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css"><script src="./app.js" type="module"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Pular para o conteúdo</a>
+  <aside class="sidebar" aria-label="Menu principal">
+    <a class="brand" href="#overview" aria-label="FinanceWEB início"><span class="brand-mark">f<span>↗</span></span><span>finance<span class="brand-light">web</span><i></i></span></a>
+    <div class="workspace"><span class="workspace-icon" data-icon="globe"></span><div>Seu radar financeiro<small>Uma visão. Todos os mercados.</small></div></div>
+    <p class="nav-label">EXPLORAR</p>
+    <nav>
+      <a href="#overview" data-page="overview" class="active"><span data-icon="grid"></span>Visão geral</a>
+      <a href="#markets" data-page="markets"><span data-icon="chart"></span>Mercados globais</a>
+      <a href="#currencies" data-page="currencies"><span data-icon="exchange"></span>Moedas e câmbio</a>
+      <a href="#news" data-page="news"><span data-icon="news"></span>Notícias</a>
+      <a href="#calendar" data-page="calendar"><span data-icon="calendar"></span>Agenda econômica</a>
+    </nav>
+    <p class="nav-label personal-label">SEU ESPAÇO</p>
+    <nav><a href="#favorites" data-page="favorites"><span data-icon="star"></span>Meus favoritos<span class="count" id="fav-count">0</span></a></nav>
+    <div class="sidebar-bottom"><div class="insight"><span class="tiny-label">AMPLIE SEU OLHAR</span><h3>O mundo se move.<br>Você acompanha.</h3><p>Informação para enxergar<br>além dos números.</p><span class="insight-globe" aria-hidden="true">◎</span></div><button class="source-button" id="source-button"><span data-icon="info"></span>Sobre os dados<span>↗</span></button><div class="sidebar-footer"><span class="status-dot"></span>Feito para acompanhar.</div></div>
+  </aside>
+  <div class="app-shell">
+    <header class="topbar"><div class="breadcrumb">Painel <span>/</span> <strong id="breadcrumb-current">Visão geral</strong></div><div class="topbar-actions"><button class="search-button" id="search-open" aria-label="Buscar ativo ou moeda"><span data-icon="search"></span><span>Buscar ativo ou moeda</span><kbd>/</kbd></button><button class="icon-button" id="theme-toggle" aria-label="Ativar modo claro" title="Alternar tema"><span data-icon="sun"></span></button><a href="#favorites" class="icon-button mobile-favorites" aria-label="Meus favoritos" title="Meus favoritos"><span data-icon="star"></span></a><span class="header-divider"></span><span class="avatar" title="Preferências salvas neste dispositivo">FW</span></div></header>
+    <main id="main" tabindex="-1">
+      <section class="page-intro"><div><div class="eyebrow"><span></span>INFORMAÇÃO QUE MOVE DECISÕES</div><h1 id="page-title">O mercado, em perspectiva<span>.</span></h1><p id="page-subtitle">Acompanhe o que importa. Conecte os pontos. Vá além.</p></div><div class="intro-meta"><div id="today"></div><button id="refresh" class="refresh-button"><span data-icon="refresh"></span>Atualizar dados</button></div></section>
+      <div class="update-strip"><span><i class="status-dot" id="connection-dot"></i><span id="connection-status" role="status">Conectando às cotações…</span></span><span class="update-detail">Consulta automática a cada 60 s <span class="separator">·</span> <button id="data-info">Fontes e horários <span>↗</span></button></span></div>
+      <section id="quotes-section" class="section" data-views="overview currencies"><div class="section-heading"><h2>Moedas em foco</h2><span class="muted">Última cotação disponível · variação do provedor</span></div><div class="quote-grid" id="quote-grid"></div></section>
+      <section class="analysis-grid section" data-views="overview currencies">
+        <article class="panel chart-panel"><div class="panel-heading"><div><div class="eyebrow muted">PULSO DO CÂMBIO</div><div class="chart-title-row"><h2 id="chart-title">Dólar americano</h2><select id="chart-currency" aria-label="Moeda do gráfico"><option value="USD">USD / BRL</option><option value="EUR">EUR / BRL</option><option value="GBP">GBP / BRL</option></select></div></div><button class="icon-button favorite-chart" id="favorite-chart" aria-label="Favoritar USD"><span data-icon="star"></span></button></div>
+          <div class="chart-value-row"><div><strong id="chart-value">—</strong><span id="chart-change" class="change"></span></div><div class="periods" aria-label="Período do gráfico"><button data-days="7">7D</button><button data-days="30" class="active" aria-pressed="true">1M</button><button data-days="90">3M</button><button data-days="365">1A</button></div></div>
+          <div class="chart-wrap" id="chart-wrap"><div class="chart-message">Carregando histórico de cotações…</div></div>
+          <div class="chart-footer"><span><i class="legend-dot"></i>Valor de compra em reais</span><span id="chart-source">Histórico diário · AwesomeAPI</span></div>
+        </article>
+        <article class="panel converter"><div class="panel-heading"><div><div class="eyebrow muted">DE UMA MOEDA PARA OUTRA</div><h2>Conversor de moedas</h2></div><span class="converter-icon" data-icon="exchange"></span></div>
+          <form id="converter-form"><label for="amount">Você tem</label><div class="amount-field"><input id="amount" type="text" inputmode="decimal" value="1.000,00" autocomplete="off" aria-describedby="conversion-error"><select id="from" aria-label="Moeda de origem"><option value="BRL">BRL · R$</option><option value="USD">USD · US$</option><option value="EUR">EUR · €</option><option value="GBP">GBP · £</option></select></div><div class="swap-line"><span></span><button type="button" id="swap" class="icon-button" aria-label="Inverter moedas"><span data-icon="exchange"></span></button><span></span></div><label for="to">Você recebe aproximadamente</label><div class="amount-field result-field"><output id="converted" for="amount from to" aria-live="polite">—</output><select id="to" aria-label="Moeda de destino"><option value="USD">USD · US$</option><option value="BRL">BRL · R$</option><option value="EUR">EUR · €</option><option value="GBP">GBP · £</option></select></div><p id="conversion-error" class="error" role="alert"></p><p class="conversion-rate" id="conversion-rate">Aguardando cotação…</p><button type="submit" class="primary-button">Converter moedas <span>↗</span></button></form><p class="converter-note"><span data-icon="info"></span>Cotação indicativa. Não inclui IOF, tarifas ou spread.</p>
+        </article>
+      </section>
+      <section class="section" data-views="overview markets"><div class="section-heading"><div><h2>Um olhar sobre o mundo</h2><p>Os principais índices, conectados ao seu dia.</p></div><div class="region-tabs" aria-label="Região do mercado"><button data-region="all" class="active" aria-pressed="true">Todos</button><button data-region="br">Brasil</button><button data-region="us">Estados Unidos</button><button data-region="eu">Europa</button></div></div><div class="market-grid" id="market-grid"></div><p class="source-note">Dados fornecidos pelo TradingView. A disponibilidade e o atraso variam por bolsa e instrumento. CFDs, quando indicados, são referências do índice.</p></section>
+      <section class="section panel favorites-panel" data-views="favorites" hidden><div class="section-heading"><div><h2>Sua lista de acompanhamento</h2><p>As moedas que você quer ter por perto, salvas neste navegador.</p></div><a href="#currencies" class="text-link">Explorar moedas ↗</a></div><div id="favorites-list"></div></section>
+      <section class="section editorial-grid" data-views="overview news calendar"><article class="panel news-panel" id="news-panel"><div class="panel-heading"><div><div class="eyebrow muted">FIQUE UM PASSO À FRENTE</div><h2>No radar do mercado</h2></div><span class="small-badge">Notícias</span></div><div id="news-widget" class="widget-container news-widget"></div><a class="external-foot" href="https://www.tradingview.com/news/" target="_blank" rel="noopener noreferrer">Notícias no TradingView · idioma original <span>↗</span></a></article><article class="panel calendar-panel" id="calendar-panel"><div class="panel-heading"><div><div class="eyebrow muted">ACOMPANHE OS PRÓXIMOS MOVIMENTOS</div><h2>Agenda econômica</h2></div><span data-icon="calendar"></span></div><div id="calendar-widget" class="widget-container calendar-widget"></div><p class="source-note">Confira o fuso e os horários indicados pelo provedor.</p></article></section>
+      <section class="learn-banner section" data-views="overview"><div class="learn-symbol" aria-hidden="true">↗</div><div><span class="eyebrow">MAIS CONTEXTO. MELHORES PERGUNTAS.</span><h2>Antes de investir, entenda o movimento.</h2><p>Câmbio, índices e indicadores: conheça o que está por trás de cada número.</p></div><button id="learn-button" class="outline-button">Entenda os indicadores <span>↗</span></button></section>
+      <footer><div class="footer-top"><span class="footer-brand">finance<span>web</span><i></i></span><span>Uma visão mais clara do seu mundo financeiro.</span><button id="footer-sources">Fontes e transparência ↗</button></div><div class="footer-bottom"><span>© <span id="year"></span> FinanceWEB</span><p>Conteúdo informativo. Não constitui recomendação de investimento.</p><span>Brasil <span class="status-dot"></span> Português</span></div></footer>
+    </main>
+  </div>
+  <dialog id="search-dialog"><div class="dialog-head"><h2>Encontre seu próximo olhar</h2><button class="icon-button" data-close="search-dialog" aria-label="Fechar busca">×</button></div><label class="search-input"><span data-icon="search"></span><input id="search-input" placeholder="Dólar, euro, Ibovespa, S&P 500…" aria-label="Buscar ativo" autocomplete="off"></label><div id="search-results"></div></dialog>
+  <dialog id="info-dialog"><div class="dialog-head"><h2 id="info-title">Fontes e transparência</h2><button class="icon-button" data-close="info-dialog" aria-label="Fechar informações">×</button></div><div id="info-content"></div></dialog>
+  <div id="toast" class="toast" role="status"></div>
+</body>
+</html>

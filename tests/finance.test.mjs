@@ -1,0 +1,7 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {parseAmount,convert,normalizeQuotes,normalizeHistory} from '../dist/finance.js';
+test('valores brasileiros: milhares, decimais, zero e entradas inválidas',()=>{assert.equal(parseAmount('1.000,50'),1000.5);assert.equal(parseAmount('0'),0);assert.equal(parseAmount('100,01'),100.01);for(const x of ['-1','abc','','1,2,3','1.2','1e5','1000000000001'])assert.ok(Number.isNaN(parseAmount(x)),x);});
+test('conversão cruzada e inversa, sem arredondamento intermediário',()=>{const rates={BRL:1,USD:5,EUR:6};assert.equal(convert(1000,'BRL','USD',rates),200);assert.equal(convert(100,'EUR','USD',rates),120);assert.equal(convert(0,'EUR','USD',rates),0);assert.equal(convert(100,'BRL','BRL',{}),100);assert.equal(convert(100,'BRL','USD',{}),null);assert.equal(convert(NaN,'BRL','BRL',rates),null);});
+test('cotação BRL recíproca e variação inversa correta',()=>{const data=Object.fromEntries(['USD','EUR','GBP'].map(code=>[code+'BRL',{bid:'5',pctChange:'10',timestamp:'1700000000'}]));const quotes=normalizeQuotes(data);assert.equal(quotes.BRL.rate,.2);assert.ok(Math.abs(quotes.BRL.change+9.09090909)<1e-7);assert.equal(quotes.USD.time,1700000000000);assert.throws(()=>normalizeQuotes({}));});
+test('histórico ordenado e rejeição de dados ausentes',()=>{assert.deepEqual(normalizeHistory([{bid:'6',timestamp:'2'},{bid:'5',timestamp:'1'},{bid:'bad',timestamp:'3'}]),[{value:5,time:1000},{value:6,time:2000}]);assert.throws(()=>normalizeHistory([]));assert.throws(()=>normalizeHistory({}));});
